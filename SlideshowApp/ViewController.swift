@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     
     var timer: Timer!
     
+    @IBOutlet weak var aa: UIButton!
     var imageCount = 0
     
     @objc func loopTimer(_timer:Timer){
@@ -29,7 +30,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         imageView.image = imagesAll[0]
         // Do any additional setup after loading the view.
     }
@@ -37,17 +37,19 @@ class ViewController: UIViewController {
         
         if self.timer == nil {
             self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(loopTimer(_timer:)), userInfo: nil, repeats: true)
+            aa.setTitle("停止", for: .normal)
+            
         }else{
             self.timer.invalidate()
             self.timer = nil
+            aa.setTitle("再生", for: .normal)
         }
     }
     
     @IBAction func nextButton(_ sender: Any) {
         if self.timer != nil{
-        self.timer.invalidate()
-        self.timer = nil
-        }
+        
+        }else{
         
         if imageCount == 4{
             imageCount = 0
@@ -55,12 +57,12 @@ class ViewController: UIViewController {
             imageCount += 1
         }
         imageView.image = imagesAll[imageCount]
+        }
     }
     @IBAction func backButton(_ sender: Any) {
         if self.timer != nil{
-        self.timer.invalidate()
-        self.timer = nil
-        }
+        
+        }else{
         if imageCount == 0{
             imageCount = 4
         }else{
@@ -68,10 +70,18 @@ class ViewController: UIViewController {
         }
         imageView.image = imagesAll[imageCount]
     }
+    }
     
     override func prepare(for segue:UIStoryboardSegue,sender:Any?){
         let zoomViewController:ZoomViewController = segue.destination as! ZoomViewController
         zoomViewController.imageCount2 = imageCount
+        
+        if self.timer != nil{
+            self.timer.invalidate()
+            self.timer = nil
+            aa.setTitle("再生", for: .normal)
+        }
+        
     }
     
     
@@ -79,9 +89,12 @@ class ViewController: UIViewController {
         
     
     @IBAction func tapZoom(_ sender: Any) {
-        
         performSegue(withIdentifier: "zoom", sender: nil)
+        
     }
+    
+    
+    
     @IBAction func unwind(for segue:UIStoryboardSegue){
         
     }
