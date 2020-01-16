@@ -13,11 +13,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     var timer: Timer!
+    @IBOutlet weak var aaa: UIButton!
+    
+    @IBOutlet weak var backOUT: UIButton!
     
     @IBOutlet weak var aa: UIButton!
     var imageCount = 0
     
     @objc func loopTimer(_timer:Timer){
+        
         if imageCount == 4{
             imageCount = 0
         }else{
@@ -26,11 +30,14 @@ class ViewController: UIViewController {
         imageView.image = imagesAll[imageCount]
     }
     
+    
     let imagesAll = [UIImage(named: "1"),UIImage(named: "2"),UIImage(named: "3"),UIImage(named: "4"),UIImage(named: "5")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = imagesAll[0]
+        
+        
         // Do any additional setup after loading the view.
     }
     @IBAction func playStopTimer(_ sender: Any) {
@@ -38,17 +45,26 @@ class ViewController: UIViewController {
         if self.timer == nil {
             self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(loopTimer(_timer:)), userInfo: nil, repeats: true)
             aa.setTitle("停止", for: .normal)
+           
+            backOUT.isEnabled = false
+            aaa.isEnabled = false
+            
+    
             
         }else{
             self.timer.invalidate()
             self.timer = nil
             aa.setTitle("再生", for: .normal)
+            
+            backOUT.isEnabled = true
+            aaa.isEnabled = true
+            
         }
     }
     
     @IBAction func nextButton(_ sender: Any) {
         if self.timer != nil{
-        
+            
         }else{
         
         if imageCount == 4{
@@ -61,7 +77,7 @@ class ViewController: UIViewController {
     }
     @IBAction func backButton(_ sender: Any) {
         if self.timer != nil{
-        
+            
         }else{
         if imageCount == 0{
             imageCount = 4
@@ -77,9 +93,14 @@ class ViewController: UIViewController {
         zoomViewController.imageCount2 = imageCount
         
         if self.timer != nil{
+            
             self.timer.invalidate()
             self.timer = nil
             aa.setTitle("再生", for: .normal)
+          
+            backOUT.isEnabled = true
+            aaa.isEnabled = true
+            
         }
         
     }

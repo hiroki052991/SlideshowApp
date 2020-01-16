@@ -65,6 +65,8 @@
                     </view>
                     <connections>
                         <outlet property="aa" destination="rbm-co-3gJ" id="HOj-pU-1Lq"/>
+                        <outlet property="aaa" destination="eOX-Yq-7zV" id="bYJ-QP-ugQ"/>
+                        <outlet property="backOUT" destination="PsA-HM-Lcy" id="kU7-Ye-m5s"/>
                         <outlet property="imageView" destination="Fil-xU-7Oc" id="IYk-yS-fol"/>
                     </connections>
                 </viewController>
